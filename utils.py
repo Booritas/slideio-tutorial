@@ -27,6 +27,8 @@ def display_test_image_info(dictionary):
     html = table.format("Image Path", "Driver", rows)
     display(HTML(html))
     
+import matplotlib.pyplot as plt
+
 def show_image(image, max_size):
     width, height = image.shape[1], image.shape[0]
     aspect_ratio = width / height
@@ -38,12 +40,17 @@ def show_image(image, max_size):
         new_height = max_size
         new_width = int(max_size * aspect_ratio)
 
+    # Check if the image has a single channel
+    if image.ndim == 2:
+        # Convert single-channel image to grayscale
+        image = plt.cm.gray(image)
+
     fig, ax = plt.subplots(figsize=(new_width / 100, new_height / 100))
     ax.imshow(image)
     ax.axis('off')
     plt.show()
-    
 
+    
 def show_images(images, titles, max_size):
     num_images = len(images)
     fig, axes = plt.subplots(1, num_images, figsize=(max_size * num_images / 100, max_size / 100))

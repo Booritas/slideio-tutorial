@@ -1,0 +1,12 @@
+[
+    {"path":"./images/CMU-1-Small-Region.svs",                      "driver":"SVS"},
+    {"path":"./images/MR-MONO2-8-16x-heart",                        "driver":"DCM"},
+    {"path":"./images/08_18_2018_enc_1001_633.czi",                 "driver":"CZI"},
+    {"path":"./images/pJP31mCherry.czi",                            "driver":"CZI"},
+    {"path":"./images/Airbus_Pleiades_50cm_8bit_RGB_Yogyakarta.jpg","driver":"GDAL"},
+    {"path":"./images/test3-DAPI-2-(387).ndpi",                     "driver":"NDPI"},
+    {"path":"./images/test3-FITC 2 (485).ndpi",                     "driver":"NDPI"},
+    {"path":"./images/test3-TRITC 2 (560).ndpi",                    "driver":"NDPI"},
+    {"path":"./images/Leica-Fluorescence-1.scn",                    "driver":"SCN"},
+    {"path":"./images/Zeiss-1-Merged.zvi",                          "driver":"ZVI"}
+]

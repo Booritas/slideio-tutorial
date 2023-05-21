@@ -86,3 +86,32 @@ def delete_file(file_path):
             print(f"Error deleting {file_path}: {e}")
     else:
         print(f"{file_path} does not exist.")
+
+def show_scenes(scenes, cols, thumbnail_size):
+    dpi = 80
+    thw = thumbnail_size[0]
+    scene_count = len(scenes)
+    print(f"Number of scenes: {scene_count}")
+    rows = (scene_count - 1)//cols + 1
+    figsize = (cols*thumbnail_size[0]//dpi, rows*thumbnail_size[1]//dpi)
+    plt.figure(figsize=figsize,dpi=dpi)
+    row_count = -1
+    for index in range(scene_count):
+        scene = scenes[index]
+        channel_count = scene.num_channels
+        row_count += 1
+        if channel_count>3:
+            image = scene.read_block(size=(thw,0), channel_indices=[0,1,2])
+        elif channel_count==2:
+            image = scene.read_block(size=(thw,0), channel_indices=[0])
+        else:
+            image = scene.read_block(size=(thw,0))
+        image_row = row_count//cols
+        image_col = row_count - (image_row*cols)
+        plt.subplot2grid((rows,cols),(image_row, image_col))
+        plt.imshow(image)
+        plt.xticks([])
+        plt.yticks([])
+        plt.title(f"{scene.file_path}")
+    plt.tight_layout()
+    plt.show()    

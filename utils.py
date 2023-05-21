@@ -2,6 +2,7 @@ import json
 from IPython.display import display, HTML
 import matplotlib.pyplot as plt
 from matplotlib.font_manager import FontProperties
+import os
 
 def get_test_images():
     file_path = 'images.json'
@@ -75,3 +76,13 @@ def show_images(images, titles, max_size):
             axes[i].set_title(titles[i], fontproperties=font)
 
     plt.show()
+
+def delete_file(file_path):
+    if os.path.isfile(file_path):
+        try:
+            os.remove(file_path)
+            print(f"{file_path} deleted successfully.")
+        except Exception as e:
+            print(f"Error deleting {file_path}: {e}")
+    else:
+        print(f"{file_path} does not exist.")

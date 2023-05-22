@@ -115,3 +115,64 @@ def show_scenes(scenes, cols, thumbnail_size):
         plt.title(f"{scene.file_path}")
     plt.tight_layout()
     plt.show()    
+
+def create_scene_info_table(scene):
+    table = "<table style='border-collapse: collapse;'>"
+    
+    # Add table header row
+    table += "<tr>"
+    table += "<th style='border: 1px solid black; padding: 8px; text-align: left;'>Property</th>"
+    table += "<th style='border: 1px solid black; padding: 8px; text-align: left;'>Value</th>"
+    table += "</tr>"
+    
+    # Create rows for each property
+    for property_name, value in [
+        ("Name", scene.name),
+        ("File Path", scene.file_path),
+        ("Size (Width, Height)", scene.size),
+        ("Number of Channels", scene.num_channels),
+        ("Compression", scene.compression),
+        ("Data Type", scene.get_channel_data_type(0)),
+        ("Magnification", scene.magnification),
+        ("Resolution", scene.resolution),
+        ("Z-Resolution", scene.z_resolution),
+        ("Time Resolution", scene.t_resolution),
+        ("Number of Z-Slices", scene.num_z_slices),
+        ("Number of Time Frames", scene.num_t_frames)
+    ]:
+        table += "<tr>"
+        table += "<td style='border: 1px solid black; padding: 8px; text-align: left;'>{}</td>".format(property_name)
+        table += "<td style='border: 1px solid black; padding: 8px; text-align: left;'>{}</td>".format(value)
+        table += "</tr>"
+
+    table += "</table>"
+    return table
+    
+def show_scene_info(table):
+    # Display the HTML table
+    display(HTML(table))
+
+def show_scene_info_tablesN(scenes):
+    table_html = ""
+    
+    # Create a table for each scene
+    for scene in scenes:
+        table_html += "<div style='display: inline-block; margin-right: 20px;'>"
+        table_html += create_scene_info_table(scene)
+        table_html += "</div>"
+    
+    # Display the HTML tables
+    from IPython.display import display, HTML
+    display(HTML(table_html))
+
+def show_scene_info_tables(scenes):
+    table_html = "<table style='border-collapse: collapse;'><tr>"
+    
+    # Create a table for each scene
+    for scene in scenes:
+        table_html += "<td>" + create_scene_info_table(scene) + "</td>"
+    
+    table_html += "</tr></table>"
+    
+    # Display the HTML table
+    display(HTML(table_html))

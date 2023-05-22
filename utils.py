@@ -148,7 +148,8 @@ def create_scene_info_table(scene):
     table += "</table>"
     return table
     
-def show_scene_info(table):
+def show_scene_info(scene):
+    table = create_scene_info_table(scene)
     # Display the HTML table
     display(HTML(table))
 

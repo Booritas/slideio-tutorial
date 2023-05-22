@@ -86,3 +86,94 @@ def delete_file(file_path):
             print(f"Error deleting {file_path}: {e}")
     else:
         print(f"{file_path} does not exist.")
+
+def show_scenes(scenes, cols, thumbnail_size):
+    dpi = 80
+    thw = thumbnail_size[0]
+    scene_count = len(scenes)
+    print(f"Number of scenes: {scene_count}")
+    rows = (scene_count - 1)//cols + 1
+    figsize = (cols*thumbnail_size[0]//dpi, rows*thumbnail_size[1]//dpi)
+    plt.figure(figsize=figsize,dpi=dpi)
+    row_count = -1
+    for index in range(scene_count):
+        scene = scenes[index]
+        channel_count = scene.num_channels
+        row_count += 1
+        if channel_count>3:
+            image = scene.read_block(size=(thw,0), channel_indices=[0,1,2])
+        elif channel_count==2:
+            image = scene.read_block(size=(thw,0), channel_indices=[0])
+        else:
+            image = scene.read_block(size=(thw,0))
+        image_row = row_count//cols
+        image_col = row_count - (image_row*cols)
+        plt.subplot2grid((rows,cols),(image_row, image_col))
+        plt.imshow(image)
+        plt.xticks([])
+        plt.yticks([])
+        plt.title(f"{scene.file_path}")
+    plt.tight_layout()
+    plt.show()    
+
+def create_scene_info_table(scene):
+    table = "<table style='border-collapse: collapse;'>"
+    
+    # Add table header row
+    table += "<tr>"
+    table += "<th style='border: 1px solid black; padding: 8px; text-align: left;'>Property</th>"
+    table += "<th style='border: 1px solid black; padding: 8px; text-align: left;'>Value</th>"
+    table += "</tr>"
+    
+    # Create rows for each property
+    for property_name, value in [
+        ("Name", scene.name),
+        ("File Path", scene.file_path),
+        ("Size (Width, Height)", scene.size),
+        ("Number of Channels", scene.num_channels),
+        ("Compression", scene.compression),
+        ("Data Type", scene.get_channel_data_type(0)),
+        ("Magnification", scene.magnification),
+        ("Resolution", scene.resolution),
+        ("Z-Resolution", scene.z_resolution),
+        ("Time Resolution", scene.t_resolution),
+        ("Number of Z-Slices", scene.num_z_slices),
+        ("Number of Time Frames", scene.num_t_frames)
+    ]:
+        table += "<tr>"
+        table += "<td style='border: 1px solid black; padding: 8px; text-align: left;'>{}</td>".format(property_name)
+        table += "<td style='border: 1px solid black; padding: 8px; text-align: left;'>{}</td>".format(value)
+        table += "</tr>"
+
+    table += "</table>"
+    return table
+    
+def show_scene_info(scene):
+    table = create_scene_info_table(scene)
+    # Display the HTML table
+    display(HTML(table))
+
+def show_scene_info_tablesN(scenes):
+    table_html = ""
+    
+    # Create a table for each scene
+    for scene in scenes:
+        table_html += "<div style='display: inline-block; margin-right: 20px;'>"
+        table_html += create_scene_info_table(scene)
+        table_html += "</div>"
+    
+    # Display the HTML tables
+    from IPython.display import display, HTML
+    display(HTML(table_html))
+
+def show_scene_info_tables(scenes):
+    table_html = "<table style='border-collapse: collapse;'><tr>"
+    
+    # Create a table for each scene
+    for scene in scenes:
+        table_html += "<td>" + create_scene_info_table(scene) + "</td>"
+    
+    table_html += "</tr></table>"
+    
+    # Display the HTML table
+    display(HTML(table_html))

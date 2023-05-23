@@ -81,11 +81,8 @@ def delete_file(file_path):
     if os.path.isfile(file_path):
         try:
             os.remove(file_path)
-            print(f"{file_path} deleted successfully.")
         except Exception as e:
             print(f"Error deleting {file_path}: {e}")
-    else:
-        print(f"{file_path} does not exist.")
 
 def show_scenes(scenes, cols, thumbnail_size):
     dpi = 80
@@ -177,3 +174,9 @@ def show_scene_info_tables(scenes):
     
     # Display the HTML table
     display(HTML(table_html))
+
+def create_output_file_path(file_path):
+    folder = "temp"
+    file_name, extension = os.path.splitext(file_path)
+    modified_path = os.path.join(".", folder, file_name.split("/")[-1] + ".svs")
+    return modified_path

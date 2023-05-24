@@ -150,18 +150,13 @@ def show_scene_info(scene):
     # Display the HTML table
     display(HTML(table))
 
-def show_scene_info_tablesN(scenes):
-    table_html = ""
-    
-    # Create a table for each scene
-    for scene in scenes:
-        table_html += "<div style='display: inline-block; margin-right: 20px;'>"
-        table_html += create_scene_info_table(scene)
-        table_html += "</div>"
-    
-    # Display the HTML tables
-    from IPython.display import display, HTML
-    display(HTML(table_html))
+def show_scene_details(scene, size):
+    table = create_scene_info_table(scene)
+    image = scene.read_block(size=(size,0))
+    image_base64 = '<img src="data:image/png;base64,{}">'.format(base64.b64encode(image).decode('utf-8'))
+    # Display the HTML table
+    display(HTML(image_base64))
+
 
 def show_scene_info_tables(scenes):
     table_html = "<table style='border-collapse: collapse;'><tr>"

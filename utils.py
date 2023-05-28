@@ -54,7 +54,7 @@ def show_image(image, max_size):
     plt.show()
 
     
-def show_images(images, titles, max_size, columns):
+def show_images(images, titles, max_size, columns=4):
     num_images = len(images)
     rows = math.ceil(num_images / columns)
     fig, axes = plt.subplots(rows, columns, figsize=(max_size * columns / 100, max_size * rows / 100))

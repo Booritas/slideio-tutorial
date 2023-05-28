@@ -3,6 +3,8 @@ from IPython.display import display, HTML
 import matplotlib.pyplot as plt
 from matplotlib.font_manager import FontProperties
 import os
+import math
+import numpy as np
 
 def get_test_images():
     file_path = 'images.json'
@@ -28,7 +30,7 @@ def display_test_image_info(dictionary):
     html = table.format("Image Path", "Driver", rows)
     display(HTML(html))
     
-import matplotlib.pyplot as plt
+
 
 def show_image(image, max_size):
     width, height = image.shape[1], image.shape[0]
@@ -52,9 +54,11 @@ def show_image(image, max_size):
     plt.show()
 
     
-def show_images(images, titles, max_size):
+def show_images(images, titles, max_size, columns):
     num_images = len(images)
-    fig, axes = plt.subplots(1, num_images, figsize=(max_size * num_images / 100, max_size / 100))
+    rows = math.ceil(num_images / columns)
+    fig, axes = plt.subplots(rows, columns, figsize=(max_size * columns / 100, max_size * rows / 100))
+    axes = axes.flatten()  # Flatten the axes array for easier indexing
 
     font = FontProperties(weight='bold', size='x-large')
 
@@ -69,13 +73,23 @@ def show_images(images, titles, max_size):
             new_height = max_size
             new_width = int(max_size * aspect_ratio)
 
+        # Convert image to grayscale if it has only one channel
+        if len(image.shape) == 2:
+            image = np.dstack((image,) * 3)
+
         axes[i].imshow(image)
         axes[i].axis('off')
 
         if titles is not None:
             axes[i].set_title(titles[i], fontproperties=font)
 
+    # Hide empty subplots
+    for j in range(num_images, len(axes)):
+        axes[j].axis('off')
+
+    plt.tight_layout()  # Adjust spacing between subplots
     plt.show()
+
 
 def delete_file(file_path):
     if os.path.isfile(file_path):

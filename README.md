@@ -8,6 +8,8 @@ The following tutorials are included in this repository:
 
 - [general.ipynb](./general.ipynb): This notebook provides an introduction to SlideIO and covers the basics of using the library. It demonstrates how to read images, extract metadata, and perform other common tasks.
 
+- [dicom.ipynb](./dicom.ipynb): Tutorial for reading of DICOM files
+
 - [converter.ipynb](./converter.ipynb): In this tutorial, you will learn how to convert pathology slides to the Aperio SVS format using SlideIO. It provides step-by-step instructions on how to perform the conversion process.
 
 - [color-transformation.ipynb](./color-transformations.ipynb): This notebook explores image transformation techniques using SlideIO, with a particular focus on color transformations. You will learn how to manipulate color channels, adjust brightness and contrast, and perform other color-related operations.

@@ -17,19 +17,42 @@ def get_driver_test_images(driver):
     images = get_test_images()
     for image in images:
         if image["driver"] == driver:
-            driver_images.append(image["path"])
+            driver_images.append(image)
     return driver_images
             
             
 
 def display_test_image_info(dictionary):
     table = "<table style='border-collapse: collapse'><tr><th style='text-align: left; border: 1px solid black'>{}</th><th style='border: 1px solid black'>{}</th></tr>{}</table>"
-    rows = ""
+    row_strings = ""
     for image in dictionary:
-        rows += "<tr><td style='text-align: left; border: 1px solid black'>{}</td><td style='font-weight: bold; border: 1px solid black'>{}</td></tr>".format(image["path"], image["driver"])
-    html = table.format("Image Path", "Driver", rows)
+        row_strings += "<tr><td style='text-align: left; border: 1px solid black'>{}</td><td style='font-weight: bold; border: 1px solid black'>{}</td></tr>".format(image["path"], image["driver"])
+    html = table.format("Image Path", "Driver", row_strings)
     display(HTML(html))
     
+def display_driver_test_image_info(image_list, driver, show_options=False):
+    th = "<th style='text-align: left; border: 1px solid black'>{}</th>"
+    tdf = "<td style='text-align: left; border: 1px solid black'>{}</td>"
+    if show_options:
+        table = f"<table style='border-collapse: collapse'><tr>{th}{th}{th}</tr>{{}}</table>"
+    else:
+        table = f"<table style='border-collapse: collapse'><tr>{th}{th}</tr>{{}}</table>"
+    row_strings = ""
+    for image_element in image_list:
+        image = tdf.format(image_element["path"])
+        driver = tdf.format(image_element["driver"])
+        options = tdf.format("")
+        if "options" in image_element:
+            options = tdf.format(image_element["options"])
+        if show_options:
+            row_strings += "<tr>{}{}{}</tr>".format(image, driver,options)
+        else:
+            row_strings += "<tr>{}{}</tr>".format(image, driver)
+    if show_options:
+        html = table.format("Image Path", "Driver", "Options",row_strings)
+    else:
+        html = table.format("Image Path", "Driver", row_strings)
+    display(HTML(html))
 
 
 def show_image(image, max_size):
@@ -120,7 +143,10 @@ def show_scenes(scenes, cols, thumbnail_size):
         image_row = row_count//cols
         image_col = row_count - (image_row*cols)
         plt.subplot2grid((rows,cols),(image_row, image_col))
-        plt.imshow(image)
+        if channel_count == 1:
+            plt.imshow(image, cmap='gray')
+        else:
+            plt.imshow(image)
         plt.xticks([])
         plt.yticks([])
         plt.title(f"{scene.file_path}")

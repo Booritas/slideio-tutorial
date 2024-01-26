@@ -1,6 +1,5 @@
 [
     {"path":"./images/CMU-1-Small-Region.svs",                      "driver":"SVS"},
-    {"path":"./images/MR-MONO2-8-16x-heart",                        "driver":"DCM",     "options":"Z-STACK"},
     {"path":"./images/08_18_2018_enc_1001_633.czi",                 "driver":"CZI"},
     {"path":"./images/pJP31mCherry.czi",                            "driver":"CZI"},
     {"path":"./images/Airbus_Pleiades_50cm_8bit_RGB_Yogyakarta.jpg","driver":"GDAL"},
@@ -10,9 +9,14 @@
     {"path":"./images/Leica-Fluorescence-1.scn",                    "driver":"SCN"},
     {"path":"./images/Zeiss-1-Merged.zvi",                          "driver":"ZVI"},
     {"path":"./images/2017-02-27 15.22.39.ndpi",                    "driver":"NDPI"},
-    {"path":"./images/BPAEC",                                       "driver":"DCM",     "options":"WSI"},
-    {"path":"./images/FluorCell_4",                                 "driver":"DCM",     "options":"WSI"},
-    {"path":"./images/FluorCell_4/3_0",                             "driver":"DCM",     "options":"WSI-SINGLE"},
-    {"path":"./images/GSPS_Liver/DICOMDIR",                         "driver":"DCM",     "options":"DICOMDIR"}
+    {"path":"./images/US-RGB-8-epicard",                            "driver":"DCM",     "options":["SINGLE-FRAME","JPEG"]},
+    {"path":"./images/OT-MONO2-8-colon.dcm",                        "driver":"DCM",     "options":["SINGLE-FRAME","NOT-COMPRESSED"]},
+    {"path":"./images/SC1_JLSN.dcm",                                "driver":"DCM",     "options":["SINGLE-FRAME","JLSN"]},
+    {"path":"./images/CT1_J2KI",                                    "driver":"DCM",     "options":["SINGLE-FRAME","JPEG2000"]},
+    {"path":"./images/MR-MONO2-8-16x-heart",                        "driver":"DCM",     "options":["Z-STACK"]},
+    {"path":"./images/GSPS_Liver/DICOMDIR",                         "driver":"DCM",     "options":["DICOMDIR","Z-STACK"]},
+    {"path":"./images/BPAEC",                                       "driver":"DCM",     "options":["WSI"]},
+    {"path":"./images/FluorCell_4",                                 "driver":"DCM",     "options":["WSI"]},
+    {"path":"./images/FluorCell_4/3_0",                             "driver":"DCM",     "options":["WSI","SINGLE-LEVEL"]}
 
 ]

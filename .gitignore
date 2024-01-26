@@ -130,3 +130,4 @@ ui-tests/playwright-report
 # RTC
 .jupyter_ystore.db
 temp/
+test.ipynb

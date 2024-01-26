@@ -5,6 +5,7 @@ from matplotlib.font_manager import FontProperties
 import os
 import math
 import numpy as np
+import plotly.graph_objects as go
 
 def get_test_images():
     file_path = 'images.json'
@@ -76,6 +77,10 @@ def show_image(image, max_size):
     ax.axis('off')
     plt.show()
 
+def convert_to_8bit(image):
+    arr_normalized = (image - image.min()) / (image.max() - image.min())
+    arr_8bit = (255 * arr_normalized).astype(np.uint8)
+    return arr_8bit
     
 def show_images(images, titles, max_size, columns=4):
     num_images = len(images)
@@ -99,7 +104,7 @@ def show_images(images, titles, max_size, columns=4):
         # Convert image to grayscale if it has only one channel
         if len(image.shape) == 2:
             image = np.dstack((image,) * 3)
-
+        image = convert_to_8bit(image)
         axes[i].imshow(image)
         axes[i].axis('off')
 
@@ -215,3 +220,84 @@ def create_output_file_path(file_path):
     file_name, extension = os.path.splitext(file_path)
     modified_path = os.path.join(".", folder, file_name.split("/")[-1] + ".svs")
     return modified_path
+
+def frame_args(duration):
+    return {
+            "frame": {"duration": duration},
+            "mode": "immediate",
+            "fromcurrent": True,
+            "transition": {"duration": duration, "easing": "linear"},
+        }
+
+def show_volume(volume):
+    r, c = volume[0].shape
+    # Define frames
+    nb_frames = volume.shape[0]
+    
+    fig = go.Figure(frames=[go.Frame(data=go.Surface(
+        z=(6.7 - k * 0.1) * np.ones((r, c)),
+        surfacecolor=np.flipud(volume[nb_frames - 1 - k]), cmin=0, cmax=200
+        ),
+        name=str(k) # you need to name the frame for the animation to behave properly
+        )
+        for k in range(nb_frames)])
+    
+    # Add data to be displayed before animation starts
+    fig.add_trace(go.Surface(
+        z=6.7 * np.ones((r, c)),
+        surfacecolor=np.flipud(volume[nb_frames-1]),
+        colorscale='Gray',
+        cmin=0, cmax=200,
+        colorbar=dict(thickness=20, ticklen=4)
+        ))
+    
+    sliders = [
+                {
+                    "pad": {"b": 10, "t": 60},
+                    "len": 0.9,
+                    "x": 0.1,
+                    "y": 0,
+                    "steps": [
+                        {
+                            "args": [[f.name], frame_args(0)],
+                            "label": str(k),
+                            "method": "animate",
+                        }
+                        for k, f in enumerate(fig.frames)
+                    ],
+                }
+            ]
+    
+    # Layout
+    fig.update_layout(
+             title='Slices in volumetric data',
+             width=600,
+             height=600,
+             scene=dict(
+                        zaxis=dict(range=[-0.1, 6.8], autorange=False),
+                        aspectratio=dict(x=1, y=1, z=1),
+                        ),
+             updatemenus = [
+                {
+                    "buttons": [
+                        {
+                            "args": [None, frame_args(50)],
+                            "label": "&#9654;", # play symbol
+                            "method": "animate",
+                        },
+                        {
+                            "args": [[None], frame_args(0)],
+                            "label": "&#9724;", # pause symbol
+                            "method": "animate",
+                        },
+                    ],
+                    "direction": "left",
+                    "pad": {"r": 10, "t": 70},
+                    "type": "buttons",
+                    "x": 0.1,
+                    "y": 0,
+                }
+             ],
+             sliders=sliders
+    )
+    fig.show()

@@ -12,14 +12,19 @@ Sources of images:
 - Airbus_Pleiades_50cm_8bit_RGB_Yogyakarta.jpg
 ***
 
-[Whole Slide Images from DICOM Working Group 26](ftp://medical.nema.org/medical/dicom/DataSets/WG26/):
+[DICOM Working Group datasets](ftp://medical.nema.org/medical/dicom/DataSets):
 - BPAEC
 - FluorCell_4
+- CT1_J2KI
 ***
 
 [Philips liver study, PR, DICOMDIR](https://www.aliza-dicom-viewer.com/download/datasets)
 - GSPS_Liver
 ***
+
+[Openmicroscopy sample images](https://downloads.openmicroscopy.org/images)
+- SC1_JLSN
+- OT-MONO2-8-colon.dcm
 
 [Sample Hamamatsu NDPI files (c) by Manuel Stritt](https://github.com/openmicroscopy/bioformats/pull/2759):
 - 2017-02-27 15.22.39.ndpi

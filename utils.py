@@ -271,8 +271,8 @@ def show_volume(volume):
     # Layout
     fig.update_layout(
              title='Slices in volumetric data',
-             width=600,
-             height=600,
+             width=500,
+             height=500,
              scene=dict(
                         zaxis=dict(range=[-0.1, 6.8], autorange=False),
                         aspectratio=dict(x=1, y=1, z=1),

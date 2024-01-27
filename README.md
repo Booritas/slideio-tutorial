@@ -10,6 +10,8 @@ The following tutorials are included in this repository:
 
 - [dicom.ipynb](./dicom.ipynb): Tutorial for reading of DICOM files
 
+- [dicom-xd.ipynb](./dicom-xd.ipynb): Tutorial for reading of multidimensional DICOM images
+
 - [dicom-wsi.ipynb](./dicom-wsi.ipynb): Tutorial for reading of DICOM WSI files
 
 - [converter.ipynb](./converter.ipynb): In this tutorial, you will learn how to convert pathology slides to the Aperio SVS format using SlideIO. It provides step-by-step instructions on how to perform the conversion process.

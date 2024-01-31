@@ -18,7 +18,7 @@ The following tutorials are included in this repository:
 
 - [color-transformation.ipynb](./color-transformations.ipynb): This notebook explores image transformation techniques using SlideIO, with a particular focus on color transformations. You will learn how to manipulate color channels, adjust brightness and contrast, and perform other color-related operations.
 
-- [filter-transformation.ipynb](./filter-transfomration.ipynb): In this tutorial, you will discover how to apply filters to pathology slides using SlideIO. It covers various filter techniques such as blurring, sharpening, and edge detection, and shows you how to integrate them into your workflow.
+- [filter-transformation.ipynb](./filter-transformation.ipynb): In this tutorial, you will discover how to apply filters to pathology slides using SlideIO. It covers various filter techniques such as blurring, sharpening, and edge detection, and shows you how to integrate them into your workflow.
 
 Feel free to explore these tutorials in any order that suits your needs. Each notebook provides detailed explanations and example code to help you understand and utilize SlideIO effectively.
 

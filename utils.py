@@ -6,6 +6,9 @@ import os
 import math
 import numpy as np
 import plotly.graph_objects as go
+import slideio
+import pandas as pd
+
 
 def get_test_images():
     file_path = 'images.json'
@@ -138,17 +141,21 @@ def show_scenes(scenes, cols, thumbnail_size):
     for index in range(scene_count):
         scene = scenes[index]
         channel_count = scene.num_channels
+        slice_count = scene.num_z_slices
+        slice = 0
+        if slice_count>1:
+            slice = slice_count//2
         row_count += 1
         if channel_count>3:
-            image = scene.read_block(size=(thw,0), channel_indices=[0,1,2])
+            image = scene.read_block(size=(thw,0), channel_indices=[0,1,2], slices=(slice,slice+1))
         elif channel_count==2:
-            image = scene.read_block(size=(thw,0), channel_indices=[0])
+            image = scene.read_block(size=(thw,0), channel_indices=[0], slices=(slice,slice+1))
         else:
             image = scene.read_block(size=(thw,0))
         image_row = row_count//cols
         image_col = row_count - (image_row*cols)
         plt.subplot2grid((rows,cols),(image_row, image_col))
-        if channel_count == 1:
+        if channel_count < 3:
             plt.imshow(image, cmap='gray')
         else:
             plt.imshow(image)
@@ -301,3 +308,22 @@ def show_volume(volume):
              sliders=sliders
     )
     fig.show()
+
+def extract_image_properties(images):
+    image_infos = []
+    for image in images:
+        image_info = {}
+        slide = slideio.open_slide(image['path'],image['driver'])
+        for index in range(0, slide.num_scenes):
+            scene = slide.get_scene(index)
+            image_info['Path'] = image['path']
+            image_info['Scene index'] = index
+            image_info['Num Channels'] = scene.num_channels
+            image_info['Data Type'] = scene.get_channel_data_type(0)
+            image_info['Compression'] = str(scene.compression).replace('Compression.','')
+            image_info['Width'] = scene.size[0]
+            image_info['Height'] = scene.size[1]
+            image_info['Z Slices'] = scene.num_z_slices
+            image_info['Z Frames'] = scene.num_t_frames
+            image_infos.append(image_info)
+    return pd.DataFrame(image_infos)

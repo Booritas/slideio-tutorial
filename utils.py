@@ -187,7 +187,8 @@ def create_scene_info_table(scene):
         ("Z-Resolution", scene.z_resolution),
         ("Time Resolution", scene.t_resolution),
         ("Number of Z-Slices", scene.num_z_slices),
-        ("Number of Time Frames", scene.num_t_frames)
+        ("Number of Time Frames", scene.num_t_frames),
+        ("Number of levels in image pyramid", scene.num_zoom_levels)
     ]:
         table += "<tr>"
         table += "<td style='border: 1px solid black; padding: 8px; text-align: left;'>{}</td>".format(property_name)
@@ -325,5 +326,12 @@ def extract_image_properties(images):
             image_info['Height'] = scene.size[1]
             image_info['Z Slices'] = scene.num_z_slices
             image_info['Z Frames'] = scene.num_t_frames
+            levels = f"{scene.num_zoom_levels} ("
+            for zl in range (scene.num_zoom_levels):
+                if zl>0:
+                    levels += ","
+                levels + str(scene.get_zoom_level_info(zl).scale)
+            levels += ")"
+            image_info['Num zoom levels'] = levels
             image_infos.append(image_info)
     return pd.DataFrame(image_infos)

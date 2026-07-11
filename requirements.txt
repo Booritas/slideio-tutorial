@@ -1,0 +1,8 @@
+jupyterlab
+ipython
+matplotlib
+numpy
+pandas
+plotly
+slideio==2.8.0
+tqdm

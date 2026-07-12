@@ -20,6 +20,6 @@
     {"path":"./images/GSPS_Liver/DICOMDIR",                         "driver":"DCM",     "options":["DICOMDIR","Z-STACK"]},
     {"path":"./images/BPAEC",                                       "driver":"DCM",     "options":["WSI"]},
     {"path":"./images/FluorCell_4",                                 "driver":"DCM",     "options":["WSI"]},
-    {"path":"./images/FluorCell_4/3_0",                             "driver":"DCM",     "options":["WSI","SINGLE-LEVEL"]}
-
+    {"path":"./images/FluorCell_4/3_0",                             "driver":"DCM",     "options":["WSI","SINGLE-LEVEL"]},
+    {"path":"./images/4D-series.ome.tiff",                          "driver":"OMETIFF"}
 ]

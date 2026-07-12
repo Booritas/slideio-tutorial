@@ -4,5 +4,5 @@ matplotlib
 numpy
 pandas
 plotly
-slideio==2.8.0
+slideio==2.8.1
 tqdm

@@ -8,6 +8,8 @@ The following tutorials are included in this repository:
 
 - [general.ipynb](./general.ipynb): This notebook provides an introduction to SlideIO and covers the basics of using the library. It demonstrates how to read images, extract metadata, and perform other common tasks.
 
+- [zoom-levels.ipynb](./zoom-levels.ipynb): This notebook covers reading from an explicitly selected pyramid level. It shows how to inspect a scene's zoom levels, read a region in a level's own coordinate system with `read_block_from_level`, walk a level tile by tile the way a viewer or tile cache would, and avoid the assumptions about level geometry that real files break.
+
 - [dicom.ipynb](./dicom.ipynb): Tutorial for reading of DICOM files
 
 - [dicom-xd.ipynb](./dicom-xd.ipynb): Tutorial for reading of multidimensional DICOM images

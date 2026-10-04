@@ -2,7 +2,8 @@ jupyterlab
 ipython
 matplotlib
 numpy
+pillow
 pandas
 plotly
-slideio==2.9.0
+slideio==2.10.0
 tqdm
